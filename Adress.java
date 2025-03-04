@@ -1,3 +1,6 @@
 public class Adress {
-    String
+    String rue;
+    String num;
+    String codePostale;
+    
 }

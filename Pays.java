@@ -1,0 +1,4 @@
+enum Pays {
+    FR,
+    PT,
+}
