@@ -2,6 +2,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import objects.*;
 
 public class main extends Application {
 
@@ -13,10 +14,14 @@ public class main extends Application {
         primaryStage.setTitle("JavaFX Hello World");
         primaryStage.setScene(scene);
         primaryStage.show();
+       
+        
     
     }
     public static void main(String[] args) {
         launch(args);
-    }
+        System.out.println("test");
+        
+        }
     
 }
