@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-15" standalone="no"?>
+<Envelope xmlns:env="http://www.intentia.com/MBM_Envelope_1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Header>
+<delivery>
+<to>
+<address>5488888006645</address>
+</to>
+<from>
+<address>3025760000104</address>
+</from>
+</delivery>
+<properties>
+<identity>69</identity>
+<sentAt>2025-03-05T10:30:15.003+01:00</sentAt>
+<expiresAt/>
+<topic>http://www.intentia.com/MBM</topic>
+</properties>
+<manifest>
+<reference uri="#ORDERS@D96A">
+<description>DOC NAME DESCR</description>
+</reference>
+</manifest>
+</Header>
+</Envelope>

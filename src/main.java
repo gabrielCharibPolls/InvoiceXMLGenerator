@@ -20,7 +20,8 @@ public class main extends Application {
     }
     public static void main(String[] args) {
         launch(args);
-        System.out.println("test");
+        XMLGenerator xmlGenerator = new XMLGenerator(STYLESHEET_MODENA, STYLESHEET_CASPIAN);
+        xmlGenerator.generateXML();
         
         }
     
