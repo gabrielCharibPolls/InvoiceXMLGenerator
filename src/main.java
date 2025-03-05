@@ -11,16 +11,20 @@ import objects.*;
 import java.io.*;
 
 public class Main extends Application {
+    private  XMLGenerator xmlFile;
 
     @Override
     public void start(Stage primaryStage) {
         // Créer le menu
+
+
         MenuBar menuBar = new MenuBar();
         Menu fileMenu = new Menu("File");
         MenuItem openItem = new MenuItem("Open...");
-        MenuItem saveItem = new MenuItem("Save...");
+        MenuItem saveItem = new MenuItem("Save XML");
         fileMenu.getItems().addAll(openItem, saveItem);
         menuBar.getMenus().add(fileMenu);
+
 
         // Zone centrale
         Label label = new Label("Enter something:");
@@ -38,13 +42,21 @@ public class Main extends Application {
             label.setText("You entered: " + inputText);
 
             // Créer un objet XMLGenerator
-            XMLGenerator xmlGenerator = new XMLGenerator (STYLESHEET_MODENA, STYLESHEET_CASPIAN);
-            xmlGenerator.generateXML();
+           //XMLGenerator xmlGenerator = new XMLGenerator (STYLESHEET_MODENA, STYLESHEET_CASPIAN);
+           //xmlGenerator.generateXML();
+           xmlFile = new XMLGenerator (STYLESHEET_MODENA, STYLESHEET_CASPIAN);
+           System.out.println("XML object created: " + xmlFile.toString());
+
+           
+
+
+
+
         });
 
         // Gestion des fichiers
         openItem.setOnAction(event -> openFile(primaryStage, textField));
-        saveItem.setOnAction(event -> saveFile(primaryStage, textField));
+        saveItem.setOnAction(event -> saveXML(primaryStage));
 
         // Contenu principal
         VBox centerBox = new VBox(10, label, textField, submitButton);
@@ -58,7 +70,7 @@ public class Main extends Application {
 
         // Scene et affichage
         Scene scene = new Scene(root, 400, 300);
-        primaryStage.setTitle("JavaFX UI with File Menu & XML Generator");
+        primaryStage.setTitle("XML Generator");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -82,20 +94,28 @@ public class Main extends Application {
         }
     }
 
-    private void saveFile(Stage stage, TextField textField) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Save File");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
-        File file = fileChooser.showSaveDialog(stage);
+    // Méthode pour enregistrer le fichier XML avec FileChooser
+    private void saveXML(Stage stage) {
+        if (xmlFile == null) {
+            System.out.println("No XML data to save.");
+            return;
+        }
 
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save XML File");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML Files", "*.xml"));
+
+        File file = fileChooser.showSaveDialog(stage);
         if (file != null) {
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-                writer.write(textField.getText());
+            try (FileWriter writer = new FileWriter(file)) {
+                writer.write(xmlFile.generateXML());
+                System.out.println("XML saved: " + file.getAbsolutePath());
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
+    
 
     public static void main(String[] args) {
         launch(args);
