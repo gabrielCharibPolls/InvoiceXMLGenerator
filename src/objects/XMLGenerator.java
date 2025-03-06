@@ -8,11 +8,22 @@ import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
+import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class XMLGenerator {
     private String outputFilePath;
+
+
+    
+    public String getXmlContent() {
+        return xmlContent;
+    }
+
+    private String xmlContent;
+
+    //utiliser le GLN de de test 
     private String fromAddress = "3025760000104";
     private String toAddress = "5488888006645";
     
@@ -87,12 +98,16 @@ public class XMLGenerator {
             Element descriptionElement = document.createElement("description");
             descriptionElement.appendChild(document.createTextNode("DOC NAME DESCR"));
             referenceElement.appendChild(descriptionElement);
-
+            
+            Element bodyElement = document.createElement("Body");
+            Element OrdersElemt = document.createElement("ORDERS");
+            //////////////////////////////////////////////////////////////////////////////////
+            //TODO  :  
             // Body 
                 //ORDERS
                     //UNB
                         //cmp01
-            
+            ///////////////////////////////////////////////////////////////////////////////////
             // Transformation du document en fichier XML
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
@@ -102,7 +117,14 @@ public class XMLGenerator {
             DOMSource source = new DOMSource(document);
             StreamResult result = new StreamResult(new File(outputFilePath));
             transformer.transform(source, result);
-
+            //////////////////////////////////////////////////////////////////////
+            //transformer le XML en string 
+            //////////////////////////////////////////////////////////////////////
+            
+            StringWriter writer = new StringWriter();
+            transformer.transform(source, new StreamResult(writer));
+            xmlContent = writer.toString();
+            
             System.out.println("Fichier XML généré avec succès : " + outputFilePath);
         } catch (Exception e) {
             e.printStackTrace();

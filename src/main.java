@@ -42,10 +42,14 @@ public class Main extends Application {
             label.setText("You entered: " + inputText);
 
             // Créer un objet XMLGenerator
-           //XMLGenerator xmlGenerator = new XMLGenerator (STYLESHEET_MODENA, STYLESHEET_CASPIAN);
-           //xmlGenerator.generateXML();
+          
+           
            xmlFile = new XMLGenerator (STYLESHEET_MODENA, STYLESHEET_CASPIAN);
+           xmlFile.generateXML();
            System.out.println("XML object created: " + xmlFile.toString());
+
+
+           
 
            
 
@@ -108,7 +112,7 @@ public class Main extends Application {
         File file = fileChooser.showSaveDialog(stage);
         if (file != null) {
             try (FileWriter writer = new FileWriter(file)) {
-                writer.write(xmlFile.generateXML());
+               writer.write(xmlFile.getXmlContent());
                 System.out.println("XML saved: " + file.getAbsolutePath());
             } catch (IOException e) {
                 e.printStackTrace();
